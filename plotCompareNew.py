@@ -3,7 +3,7 @@ import ROOT,sys,subprocess
 ROOT.gROOT.LoadMacro('/global/homes/b/btamadio/atlasstyle/AtlasStyle.C')
 ROOT.gROOT.LoadMacro('/global/homes/b/btamadio/atlasstyle/AtlasLabels.C')
 ROOT.SetAtlasStyle()
-
+ROOT.gROOT.SetBatch()
 fileNameList = ['../HistMaker/hists/AFII_FullSim_Study/AFII_NoCalib.root',
                 '../HistMaker/hists/AFII_FullSim_Study/FullSim_NoCalib.root',
                 '../HistMaker/hists/AFII_FullSim_Study/AFII_Calib.root',
@@ -12,54 +12,57 @@ colorList = [ROOT.kBlue,ROOT.kRed,ROOT.kBlue,ROOT.kRed]
 legLabelList = ['AFII Pre-calibration','FullSim Pre-calibration','AFII Calibrated','FullSim Calibrated']
 styleList = [2,2,1,1]
 fileList = [ROOT.TFile.Open(f) for f in fileNameList]
-dsidList = [403558,403560,403563,403610]
+dsidList = [403558,403560,403563,403587,403589,403595,403610]
 
 dsidLabels = ['#splitline{#splitline{RPV10}{m_{#tilde{g}}=1.2 TeV}}{m_{#tilde{#chi}_{1}^{0}}= 50 GeV}',
               '#splitline{#splitline{RPV10}{m_{#tilde{g}}=1.2 TeV}}{m_{#tilde{#chi}_{1}^{0}}= 450 GeV}',
               '#splitline{#splitline{RPV10}{m_{#tilde{g}}=1.2 TeV}}{m_{#tilde{#chi}_{1}^{0}}= 1050 GeV}',
+              '#splitline{#splitline{RPV10}{m_{#tilde{g}}=1.9 TeV}}{m_{#tilde{#chi}_{1}^{0}}= 50 GeV}',
+              '#splitline{#splitline{RPV10}{m_{#tilde{g}}=1.9 TeV}}{m_{#tilde{#chi}_{1}^{0}}= 450 GeV}',
+              '#splitline{#splitline{RPV10}{m_{#tilde{g}}=1.9 TeV}}{m_{#tilde{#chi}_{1}^{0}}= 1650 GeV}',
               '#splitline{RPV6}{m_{#tilde{g}}=1.4 TeV}']
 
 histList = [('h_fatjet_pt','fat jet p_{T} [GeV]','fraction of jets',1),
-            ('h_MJ_4jSR','M_{J}^{#Sigma} [GeV]','fraction of events',5)]
-#            ('h_fatjet_eta','fat jet #eta','fraction of jets',1)]
-                # 'h_fatjet_phi',
-                # 'h_fatjet_m',
-                # 'h_nFatJet_presel',
-                # 'h_MJ_presel',
+            ('h_fatjet_eta','fat jet #eta','fraction of jets',1),
+            ('h_fatjet_phi','fat jet #phi','fraction of jets',1),
+            ('h_fatjet_m','fat jet mass [GeV]','fraction of jets',1),
+            ('h_nFatJet_presel','N_{fat jet}','fraction of events',1),
+            ('h_MJ_presel','M_{J}^{#Sigma} [GeV]','fraction of events',5),
+            ('h_MJ_4jSR','M_{J}^{#Sigma} [GeV]','fraction of events',5),
+            ('h_MJ_5jSR','M_{J}^{#Sigma} [GeV]','fraction of events',5),
+            ('h_fatjet_nTrimSubjets','NTrimSubjets','fraction of jets',1),
+            ('h_fatjet_Split12','Split12 [GeV]','fraction of jets',1),
+            ('h_fatjet_Split23','Split23 [GeV]','fraction of jets',1),
+            ('h_fatjet_Split34','Split34 [GeV]','fraction of jets',1),
+            ('h_fatjet_tau32_wta','#tau_{32}','fraction of jets',1),
+            ('h_fatjet_tau21_wta','#tau_{21}','fraction of jets',1),
+            ('h_fatjet_D2','D2','fraction of jets',1),
+            ('h_fatjet_C2','C2','fraction ofj ets',1),
+            ('h_fatjet_m_nTrim_1','fat jet mass [GeV]','fraction of jets',1),
+            ('h_fatjet_split12_nTrim_1','split12 [GeV]','fraction of jets',1),
+            ('h_fatjet_split23_nTrim_1','split23 [GeV]','fraction of jets',1),
+            ('h_fatjet_split34_nTrim_1','split34 [GeV]','fraction of jets',1),
+            ('h_fatjet_tau32_nTrim_1','#tau_{32}','fraction of jets',1),
+            ('h_fatjet_tau21_nTrim_1','#tau_{21}','fraction of jets',1),
+            ('h_fatjet_D2_nTrim_1','D2','fraction of jets',1),
+            ('h_fatjet_C2_nTrim_1','C2','fraction of jets',1),
+            ('h_fatjet_m_nTrim_2','fat jet mass [GeV]','fraction of jets',1),
+            ('h_fatjet_split12_nTrim_2','split12 [GeV]','fraction of jets',1),
+            ('h_fatjet_split23_nTrim_2','split23 [GeV]','fraction of jets',1),
+            ('h_fatjet_split34_nTrim_2','split34 [GeV]','fraction of jets',1),
+            ('h_fatjet_tau32_nTrim_2','#tau_{32}','fraction of jets',1),
+            ('h_fatjet_tau21_nTrim_2','#tau_{21}','fraction of jets',1),
+            ('h_fatjet_D2_nTrim_2','D2','fraction of jets',1),
+            ('h_fatjet_C2_nTrim_2','C2','fraction of jets',1),
+            ('h_fatjet_m_nTrim_3','fat jet mass [GeV]','fraction of jets',1),
+            ('h_fatjet_split12_nTrim_3','split12 [GeV]','fraction of jets',1),
+            ('h_fatjet_split23_nTrim_3','split23 [GeV]','fraction of jets',1),
+            ('h_fatjet_split34_nTrim_3','split34 [GeV]','fraction of jets',1),
+            ('h_fatjet_tau32_nTrim_3','#tau_{32}','fraction of jets',1),
+            ('h_fatjet_tau21_nTrim_3','#tau_{21}','fraction of jets',1),
+            ('h_fatjet_D2_nTrim_3','D2','fraction of jets',1),
+            ('h_fatjet_C2_nTrim_3','C2','fraction of jets',1)]
 
-                # 'h_MJ_5jSR',
-                # 'h_fatjet_nTrimSubjets',
-                # 'h_fatjet_Split12',
-                # 'h_fatjet_Split23',
-                # 'h_fatjet_Split34',
-                # 'h_fatjet_tau32_wta',
-                # 'h_fatjet_tau21_wta',
-                # 'h_fatjet_tauD2_wta',
-                # 'h_fatjet_tauC2_wta',
-                # 'h_fatjet_m_nTrim_1',
-                # 'h_fatjet_Split12_nTrim_1',
-                # 'h_fatjet_Split23_nTrim_1',
-                # 'h_fatjet_Split34_nTrim_1',
-                # 'h_fatjet_tau32_wta_nTrim_1',
-                # 'h_fatjet_tau21_wta_nTrim_1',
-                # 'h_fatjet_tauD2_nTrim_1',
-                # 'h_fatjet_tauC2_nTrim_1',
-                # 'h_fatjet_m_nTrim_2',
-                # 'h_fatjet_Split12_nTrim_2',
-                # 'h_fatjet_Split23_nTrim_2',
-                # 'h_fatjet_Split34_nTrim_2',
-                # 'h_fatjet_tau32_wta_nTrim_2',
-                # 'h_fatjet_tau21_wta_nTrim_2',
-                # 'h_fatjet_tauD2_nTrim_2',
-                # 'h_fatjet_tauC2_nTrim_2',
-                # 'h_fatjet_m_nTrim_3',
-                # 'h_fatjet_Split12_nTrim_3',
-                # 'h_fatjet_Split23_nTrim_3',
-                # 'h_fatjet_Split34_nTrim_3',
-                # 'h_fatjet_tau32_wta_nTrim_3',
-                # 'h_fatjet_tau21_wta_nTrim_3',
-                # 'h_fatjet_tauD2_nTrim_3',
-                # 'h_fatjet_tauC2_nTrim_3']
 
 can = []
 leg = []
@@ -82,7 +85,7 @@ for i in range(len(dsidList)):
         h=[f.Get(hName) for f in fileList]
         for k in range(len(h)):
             if not h[k]:
-                print 'Histogram %s not found in file %s.' % (hName,h[k])
+                print 'Histogram %s not found in file %s.' % (hName,fileNameList[k])
                 sys.exit(1)
             if h[k].Integral() > 0:
                 h[k].Scale(1.0/h[k].Integral())
@@ -139,10 +142,30 @@ for i in range(len(dsidList)):
         ratioCalib[-1].SetLineColor(ROOT.kBlack)
         ratioCalib[-1].SetMarkerColor(ROOT.kBlack)
         ratioCalib[-1].SetMarkerStyle(21)
-        ratioCalib[-1].SetMaximum(1.1)
-        ratioCalib[-1].SetMinimum(0.9)
-        ratioCalib[-1].Draw('hist')
+        maxSet = False
 
+        if ratioCalib[-1].GetMaximum() > 1.4:
+            ratioCalib[-1].SetMaximum(2.0)
+            ratioCalib[-1].SetMinimum(0.5)
+        elif ratioCalib[-1].GetMaximum() > 1.2:
+            ratioCalib[-1].SetMaximum(1.4)
+            ratioCalib[-1].SetMinimum(0.6)
+        elif ratioCalib[-1].GetMaximum() > 1.1:
+            ratioCalib[-1].SetMaximum(1.2)
+            ratioCalib[-1].SetMinimum(0.8)
+        else:
+            ratioCalib[-1].SetMaximum(1.1)
+            ratioCalib[-1].SetMinimum(0.9)           
+        if 'MJ' in histList[j][0]:
+            ratioCalib[-1].SetMaximum(1.1)
+            ratioCalib[-1].SetMinimum(0.9)
+        if 'fatjet_m' in histList[j][0]:
+            ratioCalib[-1].SetMaximum(1.2)
+            ratioCalib[-1].SetMinimum(0.8)
+        if 'split' in histList[j][0] or 'Split' in histList[j][0]:
+            ratioCalib[-1].SetMaximum(2.0)
+            ratioCalib[-1].SetMinimum(0.5)
+        ratioCalib[-1].Draw('hist')
         ratioNoCalib[-1].SetLineStyle(2)
         ratioNoCalib[-1].SetLineColor(ROOT.kBlack)
         ratioNoCalib[-1].Draw('hist same')
@@ -159,7 +182,7 @@ for i in range(len(dsidList)):
         ratioCalib[-1].GetXaxis().SetLabelFont(43)
         ratioCalib[-1].GetXaxis().SetLabelSize(15)
         ratioCalib[-1].GetXaxis().SetTitle(histList[j][1])
-        outDir = '/global/project/projectdirs/atlas/www/btamadio/RPV_SUSY/AFII_FullSim_Study/'+str(dsidList[i])+'/'
+        outDir = '/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/AFII_FullSim_Comparison/07_11/'+str(dsidList[i])+'/'
         subprocess.call('mkdir -p '+outDir,shell=True)
         subprocess.call('chmod a+rx '+outDir,shell=True)
         outFileName = outDir+histList[j][0][2:]+'.pdf'
